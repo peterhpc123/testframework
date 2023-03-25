@@ -5,17 +5,19 @@ import com.example.assemblerframework.store.StoreDetails;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.support.AnnotationSupport;
 
+import java.util.HashMap;
+
 /*
-* This is an extension class with jupiter models, we can use this class do some extension before running method like: @ExtendWith(AssemblerExtension.class)
-* It will execute the override method following lifecycle callbacks
-* */
+ * This is an extension class with jupiter models, we can use this class do some extension before running method like: @ExtendWith(AssemblerExtension.class)
+ * It will execute the override method following lifecycle callbacks
+ * */
 public class AssemblerExtension implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
     private static final ExtensionContext.Namespace NAMESPACE = ExtensionContext.Namespace.create(AssemblerExtension.class);
 
 
     /*
-    * description:
-    * */
+     * description:
+     * */
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
         if (!AnnotationSupport.isAnnotated(extensionContext.getRequiredTestClass(), Story.class)) {
@@ -27,7 +29,8 @@ public class AssemblerExtension implements BeforeAllCallback, BeforeEachCallback
         StoreDetails storeDetails = new StoreDetails()
                 .setName(story.name())
                 .setDescription(story.description())
-                .setClassName(clazz.getName());
+                .setClassName(clazz.getName())
+                .setStore(new HashMap<>());
 
         extensionContext.getStore(NAMESPACE).put(clazz.getName(), storeDetails);
     }

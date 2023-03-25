@@ -43,7 +43,8 @@ public class StoreDetails {
         return store;
     }
 
-    public void setStore(Map<String, Object> store) {
+    public StoreDetails setStore(Map<String, Object> store) {
         this.store = store;
+        return this;
     }
 }
